@@ -2,51 +2,59 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class RabinKarp {
-    // int a = 1;
-    // int b = 2;
-    // int c = 3;
-    // int d = 4;
-    // int e = 5;
-    // int f = 6;
-    // int g = 7;
-    // int h = 8;
-    // int i = 9;
-    // int j = 10;
-    // int k = 11;
-    // int l = 12;
-    // int m = 13;
-    // int n = 14;
-    // int o = 15;
-    // int p = 16;
-    // int q = 17;
-    // int r = 18;
-    // int s = 19;
-    // int t = 20;
-    // int u = 21;
-    // int v = 22;
-    // int w = 23;
-    // int x = 24;
-    // int y = 25;
-    // int z = 26;
-    // String alpha = "abcdefghijklmnopqrstuvwxyz";
-    public static ArrayList<String> alphabet = new ArrayList<>(Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"));
+    static int a = 256;
+    static int n = 101;
+    static ArrayList<String> alphabet = new ArrayList<>(Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"));
 
-    public static int hash(ArrayList<String> list){
-        int hashValue = 0;
-        for (int i = 0; i < list.size(); i++) {
-            String currentString = list.get(i);
-            int stringValue = alphabet.indexOf(currentString) + 1;
+    public static ArrayList<Integer> hashList(String string){
+        ArrayList<Integer> newList = new ArrayList<>();
+        int k = string.length();
+        int count = 1;
+        System.out.println("Now hashing: " + string);
+        for (int i = 0; i < k; i++) {
+            String currentChar = string.substring(i, i+1);
+            int stringValue = alphabet.indexOf(currentChar) + 1;
+            int hashValue = ((stringValue * a^(k-count)) % n);
+            System.out.println("adding: " + currentChar + " with a sval of: " + stringValue + " and a hash of: " + hashValue);
+            newList.add(hashValue);
+            count++;
         }
+        return newList;
+    }
 
-        return 0;
+    public static int listToValue(ArrayList<Integer> input, int start, int end){
+        int total = 0;
+        for (int i = start-1; i <= end-1; i++) {
+            System.out.println("added: " + input.get(i));
+            total = total + input.get(i);
+        }
+        System.out.println("total: " + total);
+        return total;
     }
 
 
-    public static void rabinKarp(String mainString, String pattern){
-        ArrayList<String> s = new ArrayList<>();
-        // hpattern = hash()
+
+    public static int rabinKarp(String mainString, String pattern){
+        int numOfMatches = 0;
+        int n = mainString.length();
+        int m = pattern.length();
+        ArrayList<Integer> mainHash = hashList(mainString);
+        ArrayList<Integer> patternHash = hashList(pattern);
+        int hpattern = listToValue(patternHash, 1, m);
+        System.out.println("hpattern = " + hpattern);
+        for (int i = 1; i < (n - m + 1); i++) {
+            System.out.println(mainString.substring(i-1, i+m-1));
+            int hs = listToValue(mainHash, i, i+m-1);
+            if (hs == hpattern){
+                if (mainString.substring(i-1, i+m-2).equals(pattern)){
+                    numOfMatches++;
+                }
+            }
+        }
+        return numOfMatches;
     }
 
     public static void main(String[] args) {
+        System.out.println(rabinKarp("banana", "ana"));
     }
 }
