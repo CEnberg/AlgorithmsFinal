@@ -31,15 +31,13 @@ public class RabinKarp {
         return newList;
     }
 
-    /**
-     * Creates a hash value of the numbers in a list from indexes start-1 to end-1.
-     */
-    private int listToValue(ArrayList<Integer> input, int start, int end){
+    //Creates a hash value for each number in a list from indexes start-1 to end-1.
+    public static int listToValue(ArrayList<Integer> input, int start, int end){
         int total = 0;
         int count = 1;
         for (int i = start-1; i <= end-1; i++) {
             // System.out.println("added: " + input.get(i));
-            int value = (input.get(i) * (a^(start-end-count))) % n;
+            int value = (input.get(i) * (a^(end-start-count))) % n;
             // System.out.println("added: " + value);
             total = total + value;
             count++;
