@@ -1,13 +1,22 @@
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * An implementation of the Rabin-Karp string matching algorithm
+ */
 public class RabinKarp {
-    static int a = 256;
-    static int n = 101;
-    static ArrayList<String> alphabet = new ArrayList<>(Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"));
+    private static int a = 256;
+    private static int n = 101;
+    private static ArrayList<String> alphabet = new ArrayList<>(Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"));
 
-    //Creates a list of the numerical values of a given string. For example the string abc will return a list of [1,2,3] and the string zyx will return [26,25,24].
-    public static ArrayList<Integer> hashList(String string){
+    /**
+     * Creates a list of the numerical values of a given string. 
+     * For example the string abc will return a list of [1,2,3] 
+     * and the string zyx will return [26,25,24].
+     * @param string
+     * @return The numerical representation of string, in an ArrayList
+     */
+    private ArrayList<Integer> hashList(String string){
         ArrayList<Integer> newList = new ArrayList<>();
         int k = string.length();
         int count = 1;
@@ -22,8 +31,10 @@ public class RabinKarp {
         return newList;
     }
 
-    //Creates a hash value of the numbers in a list from indexes start-1 to end-1.
-    public static int listToValue(ArrayList<Integer> input, int start, int end){
+    /**
+     * Creates a hash value of the numbers in a list from indexes start-1 to end-1.
+     */
+    private int listToValue(ArrayList<Integer> input, int start, int end){
         int total = 0;
         int count = 1;
         for (int i = start-1; i <= end-1; i++) {
@@ -37,8 +48,14 @@ public class RabinKarp {
         return total;
     }
 
-    //Returns the number of times the pattern occurs in the mainString by checking the hash values of the substrings of mainString to the hash value of the pattern. 
-    public static int rabinKarp(String mainString, String pattern){
+    /**
+     * Finds the number of occurences of the pattern in the main string,
+     * using the rabin-Karp matching algorithm.
+     * @param mainString A long string to search through
+     * @param pattern A string of characters to search for in mainString
+     * @return the number of matches found, as an integer.
+     */
+    public int rabinKarp(String mainString, String pattern){
         int numOfMatches = 0;
         int n = mainString.length();
         int m = pattern.length();
@@ -58,9 +75,9 @@ public class RabinKarp {
         return numOfMatches;
     }
 
-    public static void main(String[] args) {
-        System.out.println(rabinKarp("banana", "an")); //expected 2
-        System.out.println(rabinKarp("my good friend olivia is going to ontario on monday.", "o")); //expected 9
-        System.out.println(rabinKarp("my good friend olivia is going to ontario on monday.", "on")); //expected 3
-    }
+    // public static void main(String[] args) {
+    //     System.out.println(rabinKarp("banana", "an")); //expected 2
+    //     System.out.println(rabinKarp("my good friend olivia is going to ontario on monday.", "o")); //expected 9
+    //     System.out.println(rabinKarp("my good friend olivia is going to ontario on monday.", "on")); //expected 3
+    // }
 }
