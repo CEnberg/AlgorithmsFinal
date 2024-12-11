@@ -22,22 +22,22 @@ public class StringMatchingGame {
         startTime = System.currentTimeMillis();
         matches[0] = bndm.stringMatch(pattern, text);
         endTime = System.currentTimeMillis();
-        times[0] = (endTime - startTime) / 1000.0;
+        times[0] = (endTime - startTime);
 
         startTime = System.currentTimeMillis();
         matches[1] = bf.stringMatch(pattern, text);
         endTime = System.currentTimeMillis();
-        times[1] = (endTime - startTime) / 1000.0;
+        times[1] = (endTime - startTime);
 
         startTime = System.currentTimeMillis();
         matches[2] = hs.stringMatch(pattern, text);
         endTime = System.currentTimeMillis();
-        times[2] = (endTime - startTime) / 1000.0;
+        times[2] = (endTime - startTime);
 
         startTime = System.currentTimeMillis();
         matches[3] = rk.rabinKarp(text, pattern);
         endTime = System.currentTimeMillis();
-        times[3] = (endTime - startTime) / 1000.0;
+        times[3] = (endTime - startTime);
 
         shuffleTimes(times);
         return times;
@@ -96,7 +96,7 @@ public class StringMatchingGame {
             double[] times = generateTimes(text, pattern);
             System.out.println("Matches: " + Arrays.toString(matches));
             System.out.println("\nRandomization seed: " + solutionCode);
-            System.out.println("Current times (in seconds): " + Arrays.toString(times));
+            System.out.println("Current times (in milliseconds): " + Arrays.toString(times));
             String[] answers = new String[4];
 
             boolean isCorrect = false;
