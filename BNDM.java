@@ -1,10 +1,10 @@
 import java.util.HashMap;
-import java.util.Set;
 
 import static java.lang.Math.pow;
 
 /**
- * A simple Backwards Nondeterministic DAWG (DIrected Acyclic Weighted Graph) Matching algorithm
+ * A simple Backwards Nondeterministic DAWG (DIrected Acyclic Weighted Graph) Matching algorithm 
+ * for detecting patterns in strings
  */
 public class BNDM {
 
@@ -29,18 +29,19 @@ public class BNDM {
             int lastSuffix = patternLength;
             int validSuffixes = (1 << patternLength) - 1; // initialize to 1111... in binary
 
-            while ((validSuffixes != 0) && (validSuffixes < (1 << patternLength))) {
+            while ((validSuffixes != 0) && (validSuffixes < (1 << patternLength))) { 
+            // While valid patterns are still possible, and we don't have a complete match.
                 validSuffixes = validSuffixes & bitmasks.get(text.charAt(position+offset-1));
                 offset--;
-                if ((validSuffixes & ((1 << patternLength)-1)) != 0) { 
+                if ((validSuffixes & ((1 << patternLength)-1)) != 0) { // If there is some match
                     if (offset > 0) {
-                        lastSuffix = offset;
+                        lastSuffix = offset; //Ensures if match isn't fully in current window, it will be during the next loop
                     }
                     else {
                         occurences += 1;
                     }
                 }
-                validSuffixes *= 2;
+                validSuffixes *= 2; // validSuffixes << 1
             }
             position += lastSuffix;
         }
@@ -69,7 +70,7 @@ public class BNDM {
             else {
                 bitmask.put(c, 0);
             }
-            currentPos /= 2;
+            currentPos /= 2; // currentPos >> 1
         }
     }
 
