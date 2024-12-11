@@ -40,6 +40,9 @@ public class Horspool {
         return matches;
     }
 
+    /**
+     * Generates and returns a HashMap shift table for the given pattern.
+     */
     private HashMap<Character, Integer> generateShiftTable(String pattern) {
         HashMap<Character, Integer> table = new HashMap<>();
         for (int i = 0; i < pattern.length() - 1; i++) {
@@ -48,20 +51,23 @@ public class Horspool {
         return table;
     }
 
+    /**
+     * Searches the shift table for the given character, also handles characters not in the table.
+     */
     public Integer getShift(Character character) {
         return shiftTable.getOrDefault(character, patternLength);
     }
 
-    // public static void main(String[] args) {
-    //     Horspool horspool = new Horspool();
-    //     int numMatches = horspool.stringMatch("rain", "rain, rain, rain. I hate the rain.");
-    //     System.out.println(numMatches);
+    public static void main(String[] args) {
+        Horspool horspool = new Horspool();
+        int numMatches = horspool.stringMatch("rain", "rain, rain, rain. I hate the rain.");
+        System.out.println(numMatches);
 
-        // System.out.println(horspool.stringMatch("ENDGAME", "ENDGAMEAVENGERSENDGAMEENDGAME:ENDGAMEENDGAME"));
-        // System.out.println(horspool.stringMatch("NAM", "A MAN, A PLAN, A CANAL, PANAMA!"));
-        // System.out.println(horspool.stringMatch("CANDLE", "A MAN, A PLAN, A CANAL, PANAMA!"));
-        // System.out.println(horspool.stringMatch("CANAL", "A MAN, A PLAN, A CANAL, PANAMA!"));
+        System.out.println(horspool.stringMatch("ENDGAME", "ENDGAMEAVENGERSENDGAMEENDGAME:ENDGAMEENDGAME"));
+        System.out.println(horspool.stringMatch("NAM", "A MAN, A PLAN, A CANAL, PANAMA!"));
+        System.out.println(horspool.stringMatch("CANDLE", "A MAN, A PLAN, A CANAL, PANAMA!"));
+        System.out.println(horspool.stringMatch("CANAL", "A MAN, A PLAN, A CANAL, PANAMA!"));
 
-        // System.out.println(horspool.matchString("HOBBIT", "IN A HOLE IN THE GROUND THERE LIVED A HOBBIT."));
+        System.out.println(horspool.stringMatch("HOBBIT", "IN A HOLE IN THE GROUND THERE LIVED A HOBBIT."));
     }
 }
