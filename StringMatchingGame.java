@@ -2,12 +2,22 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Class that handles a String-matching "game"
+ */
 public class StringMatchingGame {
 
     private static String[] solutions = {"BNDM", "Brute Force", "Horspool", "Rabin Karp"};
     private static String solutionCode;
     private static int[] matches;
     
+    /**
+     * Tracks the time it takes for each string-matching algorithm to run.
+     * Returns a shuffled orientation for matching in the game
+     * @param text the main text
+     * @param pattern a string that may or  may not be in the main text
+     * @return A shuffled
+     */
     private static double[] generateTimes(String text, String pattern) {
         BNDM bndm = new BNDM();
         BruteForce bf = new BruteForce();
@@ -43,9 +53,15 @@ public class StringMatchingGame {
         return times;
     }
 
+    /**
+     * Shuffles the four times utilizing the Fisher-Yates shuffle,
+     * which shuffles a given array of objects in O(n) time.
+     * Performs the same shuffles for a solution array,
+     * to help with checking if the user inputs a correct solution.
+     */
     private static void shuffleTimes(double[] times) {
         Random random = new Random();
-        char[] code = {'c', 'j', 'e', 'a'};
+        char[] code = {'c', 'j', 'e', 'a'}; // c = BNDM, j = Brute Force, e = Horspool's, a = Rabin-Karp
         int n = 4;
         for (int i = n ; i > 1 ; i--) {
             int j = random.nextInt(i); // Randomization is exclusive
@@ -65,6 +81,11 @@ public class StringMatchingGame {
         createSolutionCode(code);
     }
 
+    /**
+     * Helper method that generates a solution code for the game for demonstartion purposes,
+     * as manually inputting 24 different combinations for an unfair game sounds painful.
+     * @param codeArray
+     */
     private static void createSolutionCode(char[] codeArray) {
         StringBuilder sb = new StringBuilder();
         for (char letter : codeArray) {
@@ -73,6 +94,11 @@ public class StringMatchingGame {
         solutionCode = sb.toString();
     }
 
+    /**
+     * Returns whether or not the user-inputted guesses matches the solution.
+     * @param guesses
+     * @return a boolean
+     */
     private static boolean compareAnswers(String[] guesses) {
         boolean correct = true;
         for (int i = 0; i < 4; i++) {
@@ -121,16 +147,20 @@ public class StringMatchingGame {
                 }
             }
             
-            System.out.println("Play again? (Y/N): ");
+            String ans = null;
+            while (!ans.equals("Y") && !ans.equals("N")) {
+                System.out.println("Play again? (Y/N): ");
+                ans = s.nextLine();
+                if (!ans.equals("Y") && !ans.equals("N")) {
+                    System.out.println("Please input either Y for yes or N for no.");
+                }
+            }
             if (s.nextLine().equals("N")) {
                 continuePlay = false;
             }
-            else {
-                System.out.println("");
-            }
         }
 
-        System.out.println("Hope you had fun! :))))))))");
+        System.out.println("\nHope you had fun! :))))))))");
 
         s.close();
     }

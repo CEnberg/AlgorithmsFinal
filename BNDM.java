@@ -74,11 +74,11 @@ public class BNDM {
         }
     }
 
-    public static void main(String[] args) {
-        BNDM bndm = new BNDM();
-        String text = "rain, rain, rain. I hate the rain.";
-        String pattern = "rain";
-        System.out.println("Occurences found: " + bndm.stringMatch(pattern, text));
-    }
+    // public static void main(String[] args) {
+    //     BNDM bndm = new BNDM();
+    //     String text = "rain, rain, rain. I hate the rain.";
+    //     String pattern = "rain";
+    //     System.out.println("Occurences found: " + bndm.stringMatch(pattern, text));
+    // }
     
 }
